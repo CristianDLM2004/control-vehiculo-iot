@@ -35,3 +35,10 @@ export async function check(url, timeout = 4000) {
   try { return (await fetch(url, { cache: 'no-store', signal: ctrl.signal })).ok; }
   catch { return false; } finally { clearTimeout(t); }
 }
+
+// Devuelve el código HTTP, o 0 si no hubo respuesta (red caída o tiempo agotado)
+export async function probe(url, timeout = 5000) {
+  const ctrl = new AbortController(), t = setTimeout(() => ctrl.abort(), timeout);
+  try { return (await fetch(url, { cache: 'no-store', signal: ctrl.signal })).status; }
+  catch { return 0; } finally { clearTimeout(t); }
+}

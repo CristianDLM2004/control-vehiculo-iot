@@ -19,26 +19,31 @@
     <div id="st-db" class="chip unk"><i class="bi"></i><span><small><span class="full">Base de datos · Amazon RDS</span><span class="short">Amazon RDS</span></small><b class="txt">…</b></span></div>
   </section>
   <section class="remote" aria-label="Control remoto">
+    <button id="btnStop" class="btn-act stop" data-cmd="DETENER"><i class="bi bi-stop-fill"></i><span>Detener</span></button>
     <div id="joyL" class="joy"></div>
-    <div class="actions" aria-label="Botones">
-      <button id="btnLight" class="btn-act" data-cmd="LUZ"><i class="bi bi-lightbulb-fill"></i><span>Luces</span></button>
-      <button id="btnSound" class="btn-act" data-cmd="SONIDO"><i class="bi bi-volume-up-fill"></i><span>Sonido</span></button>
-      <button id="btnStop" class="btn-act stop" data-cmd="DETENER"><i class="bi bi-stop-fill"></i><span>Detener</span></button>
-    </div>
     <div id="joyR" class="joy"></div>
-    <p id="msg" class="msg" role="status" aria-live="polite">Listo.</p>
-  </section>
-  <section class="demo" aria-label="DEMO">
-    <h2 class="demo-title"><i class="bi bi-collection-play-fill"></i> Secuencias DEMO</h2>
-    <label for="demoSel" class="visually-hidden">Elegir DEMO</label>
-    <select id="demoSel" class="form-select"></select>
-    <p id="demoDesc" class="demo-desc"></p>
-    <div class="progress" role="progressbar" aria-label="Progreso de la DEMO"><div id="demoBar" class="progress-bar"></div></div>
-    <div class="demo-btns">
-      <button id="demoRun" class="btn btn-success"><i class="bi bi-play-fill"></i> Ejecutar</button>
-      <button id="demoCancel" class="btn btn-outline-danger" disabled><i class="bi bi-x-circle"></i> Cancelar</button>
+    <div class="mid">
+      <div class="actions" aria-label="Luz y sonido">
+        <button id="btnLight" class="btn-act" data-cmd="LUZ"><i class="bi bi-lightbulb-fill"></i><span>Luces</span></button>
+        <button id="btnSound" class="btn-act" data-cmd="SONIDO"><i class="bi bi-volume-up-fill"></i><span>Sonido</span></button>
+      </div>
+      <div class="demo" aria-label="Selector y ejecución de DEMO">
+        <div id="dialTip" class="dial-tip" role="status" aria-live="polite"></div>
+        <div class="dial-wrap">
+          <button id="dialPrev" class="dial-step" aria-label="DEMO anterior"><i class="bi bi-chevron-left"></i></button>
+          <div id="dial" class="dial" role="spinbutton" tabindex="0" aria-label="Seleccionar DEMO: rueda del ratón, arrastrar o flechas" aria-valuemin="1" aria-valuenow="0">
+            <div id="dialRing" class="dial-ring"></div><span id="dialNum" class="dial-num">–</span>
+          </div>
+          <button id="dialNext" class="dial-step" aria-label="DEMO siguiente"><i class="bi bi-chevron-right"></i></button>
+        </div>
+        <div class="demo-btns">
+          <button id="demoRun" class="btn btn-success" aria-label="Ejecutar DEMO" title="Ejecutar DEMO"><i class="bi bi-play-fill"></i></button>
+          <button id="demoCancel" class="btn btn-outline-danger" aria-label="Cancelar DEMO" title="Cancelar DEMO" disabled><i class="bi bi-stop-fill"></i></button>
+        </div>
+      </div>
     </div>
-    <p id="demoMsg" class="demo-msg" aria-live="polite"></p>
+    <div class="led-wrap"><span class="led-lbl">DEMO</span><div id="ledBar" class="led-bar" role="progressbar" aria-label="Progreso de la DEMO" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
+    <p id="msg" class="msg" role="status" aria-live="polite">Listo.</p>
   </section>
 </main>
 <footer class="credits"><small id="credits"></small></footer>
