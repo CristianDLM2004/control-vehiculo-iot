@@ -9,7 +9,8 @@ const emit = (k, v) => subs[k].forEach(fn => fn(v));
 export function connect() {
   clearTimeout(timer);
   emit('state', retry ? 'reconnecting' : 'connecting');
-  ws = new WebSocket(CONFIG.WS_URL);
+  try { ws = new WebSocket(CONFIG.WS_URL); }
+  catch { emit('state', 'offline'); timer = setTimeout(connect, 10000); return; }   // URL inválida o bloqueada: la interfaz sigue funcionando
   ws.onopen = () => { retry = 0; emit('state', 'online'); };
   ws.onmessage = e => { try { emit('event', JSON.parse(e.data)); } catch { /* mensaje no JSON: se ignora */ } };
   ws.onclose = () => {   // al caer, sale de "En línea" de inmediato y reintenta con espera creciente
