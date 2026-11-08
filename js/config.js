@@ -1,6 +1,6 @@
 // Único punto de configuración. Al tener HTTPS en la API, cambia SOLO SERVER a https://...
 // (el WebSocket pasa solo de ws:// a wss://). Desde GitHub Pages (HTTPS) un SERVER http:// será bloqueado.
-const SERVER = 'http://184.195.59.56:8000';
+const SERVER = 'https://controlcristian.duckdns.org';
 const VEHICLE_ID = 1;
 
 export const CONFIG = {
