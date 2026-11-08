@@ -148,3 +148,49 @@ body{background:url(../assets/fondo-obra.svg) center bottom/cover no-repeat fixe
   .btn-act.stop{width:84px;height:84px;font-size:.62rem}
   .remote .msg{font-size:.9rem;height:2.6em}
 }
+
+/* ===== Compacto: sin hueco bajo el encabezado, estado más pequeño y rejillas alineadas ===== */
+main.container-lg{padding-top:12px!important;padding-bottom:8px!important}
+.app-header{margin-bottom:0;padding-top:calc(8px + env(safe-area-inset-top));padding-bottom:8px}
+.status{margin-top:0;padding:6px;gap:5px}
+.status::before{display:none}
+.chip{padding:5px 4px;gap:1px}
+.chip i{font-size:1.2rem}.chip b{font-size:.78rem}.chip small{font-size:.55rem}
+.remote{margin-top:8px;padding:10px;gap:8px}
+.joy-title{white-space:nowrap;font-size:.75rem;letter-spacing:.5px;padding:3px 10px}
+#joyL,#joyR{align-self:start}   /* ambas palancas arrancan a la misma altura */
+.credits{padding:8px 12px calc(8px + env(safe-area-inset-bottom))}.credits small{font-size:.7rem}
+
+@media (min-width:768px){
+  /* DETENER arriba al centro, sobre luz/sonido/DEMO; las palancas ocupan las dos filas */
+  :root{--j:clamp(240px,min(42vh,21vw),400px)}
+  .remote{grid-template-columns:1fr minmax(320px,auto) 1fr;grid-template-areas:"L X R" "L A R" "P P P" "M M M";gap:8px 10px;padding:14px}
+  #btnStop,.mid{align-self:start}
+  .mid{min-width:320px}
+  .joy-title{font-size:.9rem;letter-spacing:1px}
+  .chip b{font-size:.85rem}.chip small{font-size:.6rem}
+}
+
+/* Teléfono en horizontal: todo el control en una pantalla */
+@media (orientation:landscape) and (max-height:520px){
+  :root{--j:min(40vh,24vw)}
+  .app-header{padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}
+  .app-header h1{font-size:.75rem!important}
+  .app-header::after{height:5px;bottom:-5px}
+  main.container-lg{padding-top:8px!important}
+  .status{padding:4px}
+  .chip{flex-direction:row;justify-content:flex-start;text-align:left;padding:3px 8px;gap:8px;border-top-width:3px}
+  .chip>span{display:flex;flex-direction:column}
+  .chip i{font-size:1rem}.chip b{font-size:.72rem}.chip small{font-size:.5rem}
+  .remote{padding:8px;gap:5px 10px;margin-top:6px}
+  .btn-act.stop{width:52px;height:52px}.btn-act.stop i{font-size:1.2rem}.btn-act.stop span{font-size:.45rem}
+  .actions .btn-act{min-height:36px;font-size:.7rem}
+  .demo{padding:20px 8px 6px}
+  .dial{width:62px;height:62px}.dial-num{width:36px;height:36px;font-size:1.1rem}.dial-step{height:36px}
+  .demo-btns .btn{min-height:38px}
+  .led-wrap{padding:5px 10px}.led-bar i{height:8px}
+  .remote .msg{height:2.1em;font-size:.65rem}
+  .joy-title{font-size:.65rem;padding:2px 8px}
+  .hint{font-size:.6rem}
+  .credits{padding:4px}
+}
