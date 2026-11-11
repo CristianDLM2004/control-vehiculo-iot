@@ -11,13 +11,15 @@
 <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<header class="app-header"><h1 class="h6 m-0">Central de control · <span id="vehName">Cargando…</span></h1></header>
+<header class="app-header"><h1 class="h6 m-0">Central de control · <span id="vehName">Cargando…</span></h1>
+  <nav class="tabs" aria-label="Secciones"><a id="tab-control" href="#control" class="active">Control</a><a id="tab-monitoreo" href="#monitoreo">Monitoreo</a></nav></header>
 <main class="container-lg py-3">
   <section class="status" aria-label="Estado de las conexiones">
     <div id="st-ws" class="chip unk"><i class="bi"></i><span><small><span class="full">WebSocket WSS</span><span class="short">WebSocket</span></small><b class="txt">…</b></span></div>
     <div id="st-api" class="chip unk"><i class="bi"></i><span><small><span class="full">Servidor AWS · API de 21 servicios</span><span class="short">API AWS · 21</span></small><b class="txt">…</b></span></div>
     <div id="st-db" class="chip unk"><i class="bi"></i><span><small><span class="full">Base de datos · Amazon RDS</span><span class="short">Amazon RDS</span></small><b class="txt">…</b></span></div>
   </section>
+  <div id="view-control">
   <section class="remote" aria-label="Control remoto">
     <button id="btnStop" class="btn-act stop" data-cmd="DETENER"><i class="bi bi-stop-fill"></i><span>Detener</span></button>
     <div id="joyL" class="joy"></div>
@@ -45,6 +47,28 @@
     <div class="led-wrap"><span class="led-lbl">DEMO</span><div id="ledBar" class="led-bar" role="progressbar" aria-label="Progreso de la DEMO" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
     <p id="msg" class="msg" role="status" aria-live="polite">Listo.</p>
   </section>
+  </div>
+  <div id="view-monitoreo" hidden>
+    <section class="mon-card" aria-labelledby="lastTitle">
+      <h2 id="lastTitle">Último movimiento <span id="liveTag" class="live">Sin conexión en vivo</span></h2>
+      <div class="last-main"><i id="lastIcon" class="bi bi-activity" aria-hidden="true"></i><strong id="lastName" aria-live="polite">Cargando…</strong></div>
+      <dl class="last-meta">
+        <div><dt>Vehículo</dt><dd id="lastVeh">—</dd></div><div><dt>Código</dt><dd id="lastCode">—</dd></div>
+        <div><dt>Fecha</dt><dd id="lastDate">—</dd></div><div><dt>Hora</dt><dd id="lastTime">—</dd></div>
+      </dl>
+      <p id="lastSrc" class="last-src">Sin datos</p>
+    </section>
+    <section class="mon-card" aria-labelledby="histTitle">
+      <h2 id="histTitle">Últimos 10 movimientos individuales</h2>
+      <p id="histState" class="hist-state" role="status" aria-live="polite">Cargando…</p>
+      <table class="hist">
+        <caption class="visually-hidden">Últimos diez movimientos individuales registrados en RDS, del más reciente al más antiguo</caption>
+        <thead><tr><th scope="col">#</th><th scope="col">Movimiento</th><th scope="col">Fecha</th><th scope="col">Hora</th></tr></thead>
+        <tbody id="histBody"></tbody>
+      </table>
+      <p class="hist-note">Registros persistidos en Amazon RDS y consultados por la API: el WebSocket solo avisa que hay cambios. <span id="tzNote"></span></p>
+    </section>
+  </div>
 </main>
 <footer class="credits"><small id="credits"></small></footer>
 <script type="module" src="js/main.js"></script>

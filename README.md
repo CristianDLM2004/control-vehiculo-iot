@@ -19,3 +19,10 @@ Conecta Thunder Client / Postman a la URL `WS_URL` de `config.js`, acciona un co
 
 ## Publicar
 GitHub → Settings → Pages → rama `main`, carpeta `/ (root)`. Desde Pages la API debe ser HTTPS/WSS.
+
+## Ampliación 4.2 · MONITOREO
+Misma página y misma conexión WSS: navegación `#control` / `#monitoreo` (`js/router.js`). Módulos nuevos: `router.js`, `monitor.js` (último movimiento + tabla), `format.js` (fecha/hora). `api.js` suma `estado()` e `historial()`.
+- **REST**: `GET /vehiculos/{id}/estado` y `GET /vehiculos/{id}/historial` (carga inicial, al volver a MONITOREO y tras reconectar WSS).
+- **WSS**: `MOV_INDIVIDUAL` actualiza la tarjeta y programa 3 consultas REST acotadas, porque el backend publica antes de guardar en RDS. `MOV_DEMO` solo actualiza la tarjeta; nunca la tabla.
+- La tabla muestra máximo 10 registros por `id_historial` (sin duplicados); respuestas atrasadas se descartan.
+- Prueba: abre `#monitoreo`, conecta un cliente WSS externo y acciona CONTROL desde otra pestaña; la tabla y la tarjeta cambian sin recargar.

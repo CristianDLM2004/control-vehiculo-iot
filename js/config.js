@@ -11,6 +11,7 @@ export const CONFIG = {
   DB_PROBE_URL: `${SERVER}/api/vehiculos/${VEHICLE_ID}/estado`, // consulta de solo lectura que ejecuta un procedimiento en RDS
   DB_READY_URL: null,                   // sin diagnóstico seguro de RDS autorizado → "Sin verificar"
   HEALTH_EVERY_MS: 15000,
+  DB_TIMEZONE: 'UTC',                   // zona en la que la BD entrega las fechas (verifícala comparando con tu reloj)
   OWNER: 'Cristian David López Martínez',
   YEAR: 2026,
 };

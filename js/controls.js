@@ -62,3 +62,5 @@ onEvent(ev => {
   mark(c.nombre, 'received'); say(`${c.nombre}: evento recibido por WebSocket`, 'ok');
   setTimeout(() => mark(c.nombre, 'idle'), 1200);
 });
+
+export const commandById = id => byId.get(id);   // lo usa MONITOREO para nombrar eventos

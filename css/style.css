@@ -194,3 +194,27 @@ main.container-lg{padding-top:12px!important;padding-bottom:8px!important}
   .hint{font-size:.6rem}
   .credits{padding:4px}
 }
+
+/* ===== Navegación y MONITOREO ===== */
+.tabs{display:flex;justify-content:center;gap:6px;margin-top:6px}
+.tabs a{display:inline-flex;align-items:center;min-height:34px;padding:4px 18px;border-radius:20px;background:#0003;color:#111;font-weight:800;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;text-decoration:none}
+.tabs a:hover{background:#0005}.tabs a.active{background:#121212;color:var(--primary)}
+#view-monitoreo{max-width:760px;margin:8px auto 0}
+.mon-card{background:#1b1812ee;border:2px solid #3a3226;border-top:6px solid var(--primary);border-radius:12px;padding:12px;margin-top:10px}
+.mon-card h2{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.9rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin:0 0 10px}
+.live{font-size:.62rem;letter-spacing:.5px;padding:2px 8px;border-radius:10px;background:#2a2f36;color:#aab;white-space:nowrap}.live.on{background:var(--ok);color:#052}
+.last-main{display:flex;align-items:center;gap:12px}.last-main i{font-size:2.4rem;color:var(--primary)}
+.last-main strong{font-size:clamp(1.4rem,6vw,2.2rem);font-weight:900;letter-spacing:1px;text-transform:uppercase;overflow-wrap:anywhere}
+.last-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin:10px 0 6px}
+.last-meta dt{font-size:.6rem;letter-spacing:1px;text-transform:uppercase;color:#9a8f7c}.last-meta dd{margin:0;font:700 1rem Consolas,monospace;overflow-wrap:anywhere}
+.last-src{margin:0;font-size:.75rem;color:#c9bfae;background:#0006;border-left:3px solid var(--primary);padding:5px 8px;border-radius:4px}
+.hist{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.85rem}
+.hist th{color:var(--primary);font-size:.65rem;letter-spacing:1px;text-transform:uppercase;text-align:left;padding:6px;border-bottom:2px solid #3a3226}
+.hist td{padding:7px 6px;overflow-wrap:anywhere;font-family:Consolas,monospace}
+.hist th:first-child,.hist td:first-child{width:34px;text-align:center}
+.hist tbody tr:nth-child(odd){background:#ffffff0a}.hist tr.new{animation:flash 2.2s ease-out}
+@keyframes flash{from{background:#f39c1288}to{background:transparent}}
+.hist-state{margin:0 0 6px;min-height:1.2em;font-size:.8rem;color:#c9bfae}.hist-state.err{color:var(--bad)}
+.hist-note{margin:8px 0 0;font-size:.65rem;color:#9a8f7c}
+@media (min-width:576px){.last-meta{grid-template-columns:repeat(4,1fr)}.hist{font-size:.95rem}}
+@media (orientation:landscape) and (max-height:520px){.tabs{margin-top:3px}.tabs a{min-height:24px;padding:2px 12px;font-size:.7rem}}

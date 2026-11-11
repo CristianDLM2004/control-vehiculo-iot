@@ -27,6 +27,8 @@ export const api = {
   mover: id_comando => request(`${V}/movimientos`, { method: 'POST',
     body: { id_vehiculo: CONFIG.VEHICLE_ID, id_comando, conectado: true, origen: 'WEB_GUI' } }),
   iniciarDemo: id => request(`${V}/demos/${id}/iniciar`, { method: 'POST' }),
+  estado: () => request(`${V}/estado`),
+  historial: () => request(`${V}/historial`),
 };
 
 // Comprobación simple de disponibilidad (true/false) con timeout
