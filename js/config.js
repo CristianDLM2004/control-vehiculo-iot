@@ -1,6 +1,8 @@
 // Único punto de configuración. Al tener HTTPS en la API, cambia SOLO SERVER a https://...
 // (el WebSocket pasa solo de ws:// a wss://). Desde GitHub Pages (HTTPS) un SERVER http:// será bloqueado.
-const SERVER = 'https://controlcristian.duckdns.org';
+// Pruebas locales: abre Live Server con  ?api=local  (solo funciona desde localhost) para usar tu API en http://127.0.0.1:8000
+const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).get('api') === 'local';
+const SERVER = LOCAL ? 'http://127.0.0.1:8000' : 'https://controlcristian.duckdns.org';
 const VEHICLE_ID = 1;
 
 export const CONFIG = {

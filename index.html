@@ -12,7 +12,7 @@
 </head>
 <body>
 <header class="app-header"><h1 class="h6 m-0"><span class="t-long">Central de control · </span><span id="vehName">Cargando…</span></h1>
-  <nav class="tabs" aria-label="Secciones"><a id="tab-control" href="#control" class="active">Control</a><a id="tab-monitoreo" href="#monitoreo">Monitoreo</a></nav></header>
+  <nav class="tabs" aria-label="Secciones"><a id="tab-control" href="#control" class="active">Control</a><a id="tab-monitoreo" href="#monitoreo">Monitoreo</a><a id="tab-ia" href="#ia">IA</a></nav></header>
 <main class="container-lg py-3">
   <section class="status" aria-label="Estado de las conexiones">
     <div id="st-ws" class="chip unk"><i class="bi"></i><span><small><span class="full">WebSocket WSS</span><span class="short">WebSocket</span></small><b class="txt">…</b></span></div>
@@ -67,6 +67,24 @@
         <tbody id="histBody"></tbody>
       </table>
       <p class="hist-note">Registros persistidos en Amazon RDS y consultados por la API: el WebSocket solo avisa que hay cambios. <span id="tzNote"></span></p>
+    </section>
+  </div>
+
+  <div id="view-ia" hidden>
+    <section class="mon-card" aria-labelledby="iaTitle">
+      <h2 id="iaTitle">Asistente IA</h2>
+      <div class="ia-row">
+        <button id="micBtn" type="button" class="mic" aria-pressed="false" aria-label="Hablar a la excavadora"><i class="bi bi-mic-fill"></i></button>
+        <form id="iaForm" class="ia-form">
+          <label for="iaText" class="visually-hidden">Orden para la excavadora</label>
+          <input id="iaText" class="form-control" maxlength="200" autocomplete="off" placeholder="Ej.: actúa de manera coqueta">
+          <button class="btn btn-warning" type="submit" aria-label="Enviar orden"><i class="bi bi-send-fill"></i></button>
+        </form>
+      </div>
+      <div id="iaChips" class="ia-chips"></div>
+      <p id="iaSay" class="ia-say" role="status" aria-live="polite">Habla o escribe una orden.</p>
+      <ol id="iaSteps" class="ia-steps" aria-label="Pasos planeados"></ol>
+      <button id="iaStop" type="button" class="ia-stop"><i class="bi bi-stop-fill"></i> Detener</button>
     </section>
   </div>
 </main>

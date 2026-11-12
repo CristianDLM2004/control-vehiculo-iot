@@ -1,5 +1,5 @@
 // Navegación CONTROL / MONITOREO dentro de la misma página (hash #control, #monitoreo). Una sola conexión WSS compartida.
-const VIEWS = ['control', 'monitoreo'];
+const VIEWS = ['control', 'monitoreo', 'ia'];
 const $ = id => document.getElementById(id);
 
 export function initRouter({ onChange } = {}) {

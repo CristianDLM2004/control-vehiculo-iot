@@ -7,6 +7,7 @@ import * as controls from './controls.js';
 import { initDemos } from './demos.js';
 import { initRouter } from './router.js';
 import * as monitor from './monitor.js';
+import * as ia from './ia.js';
 
 const $ = id => document.getElementById(id);
 // [comando del catálogo, etiqueta, icono] por dirección
@@ -18,13 +19,14 @@ const RIGHT = { up: ['SUBIR_BRAZO', 'Subir brazo', 'bi-caret-up-fill'], down: ['
 $('credits').textContent = `Desarrollado por ${CONFIG.OWNER} · ${CONFIG.YEAR}`;
 initStatus();
 monitor.init();
+ia.init();
 connect();
 
 const sticks = [
   createJoystick($('joyL'), { title: 'Orugas', dirs: LEFT, onChange: n => controls.joy('left', n) }),
   createJoystick($('joyR'), { title: 'Cabina y brazo', dirs: RIGHT, onChange: n => controls.joy('right', n) }),
 ];
-initRouter({ onChange: v => { if (v !== 'control') sticks.forEach(s => s.release()); if (v === 'monitoreo') monitor.enter(); } });
+initRouter({ onChange: v => { if (v !== 'control') sticks.forEach(s => s.release()); if (v === 'monitoreo') monitor.enter(); if (v !== 'ia') ia.leave(); } });
 $('btnLight').onclick = () => controls.press('LUZ');
 $('btnSound').onclick = () => controls.press('SONIDO');
 $('btnStop').onclick = () => { sticks.forEach(s => s.release(true)); controls.stop(); };

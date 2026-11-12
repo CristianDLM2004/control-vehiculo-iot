@@ -12,7 +12,7 @@ async function request(path, { method = 'GET', body, timeout = 8000 } = {}) {
       headers: body ? { 'Content-Type': 'application/json' } : undefined,
       body: body ? JSON.stringify(body) : undefined,
     });
-    if (!res.ok) throw new ApiError(res.status === 409 ? 'Ya hay una DEMO en curso' : `La API respondió ${res.status}`);
+    if (!res.ok) throw new ApiError(({ 409: 'Ya hay una DEMO o secuencia en curso', 429: 'Demasiadas solicitudes: espera unos segundos', 502: 'La IA no respondió' })[res.status] || `La API respondió ${res.status}`);
     try { return await res.json(); } catch { throw new ApiError('Respuesta no válida de la API'); }
   } catch (e) {
     if (e instanceof ApiError) throw e;
@@ -27,6 +27,7 @@ export const api = {
   mover: id_comando => request(`${V}/movimientos`, { method: 'POST',
     body: { id_vehiculo: CONFIG.VEHICLE_ID, id_comando, conectado: true, origen: 'WEB_GUI' } }),
   iniciarDemo: id => request(`${V}/demos/${id}/iniciar`, { method: 'POST' }),
+  iaComando: texto => request(`${V}/ia/comando`, { method: 'POST', body: { texto }, timeout: 25000 }),
   estado: () => request(`${V}/estado`),
   historial: () => request(`${V}/historial`),
 };
