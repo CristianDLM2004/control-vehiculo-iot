@@ -11,7 +11,7 @@
 <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-<header class="app-header"><h1 class="h6 m-0">Central de control · <span id="vehName">Cargando…</span></h1>
+<header class="app-header"><h1 class="h6 m-0"><span class="t-long">Central de control · </span><span id="vehName">Cargando…</span></h1>
   <nav class="tabs" aria-label="Secciones"><a id="tab-control" href="#control" class="active">Control</a><a id="tab-monitoreo" href="#monitoreo">Monitoreo</a></nav></header>
 <main class="container-lg py-3">
   <section class="status" aria-label="Estado de las conexiones">
@@ -26,8 +26,8 @@
     <div id="joyR" class="joy"></div>
     <div class="mid">
       <div class="actions" aria-label="Luz y sonido">
-        <button id="btnLight" class="btn-act" data-cmd="LUZ"><i class="bi bi-lightbulb-fill"></i><span>Luces</span></button>
-        <button id="btnSound" class="btn-act" data-cmd="SONIDO"><i class="bi bi-volume-up-fill"></i><span>Sonido</span></button>
+        <button id="btnLight" class="btn-act" data-cmd="LUZ" aria-pressed="true"><i class="bi bi-lightbulb-fill"></i><span>Luces</span><small class="aux-st">ON</small></button>
+        <button id="btnSound" class="btn-act" data-cmd="SONIDO" aria-pressed="true"><i class="bi bi-volume-up-fill"></i><span>Sonido</span><small class="aux-st">ON</small></button>
       </div>
       <div class="demo" aria-label="Selector y ejecución de DEMO">
         <div id="dialTip" class="dial-tip" role="status" aria-live="polite"></div>

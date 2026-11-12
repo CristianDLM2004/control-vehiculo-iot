@@ -12,6 +12,15 @@ function mark(name, state) {   // refleja solicitado / aceptado / recibido / err
 }
 function say(text, cls = '') { const m = $('msg'); m.textContent = text; m.className = `msg ${cls}`; }
 
+// LUZ y SONIDO: la ESP los alterna con cada orden. Al encender el carro ambos están activos, por eso arrancan en ON.
+const aux = { LUZ: true, SONIDO: true };
+const AUX_BTN = { LUZ: 'btnLight', SONIDO: 'btnSound' };
+function paintAux() {
+  Object.keys(aux).forEach(n => { const b = $(AUX_BTN[n]); b.setAttribute('aria-pressed', aux[n]); b.querySelector('.aux-st').textContent = aux[n] ? 'ON' : 'OFF'; });
+}
+function toggleAux(name) { if (Object.hasOwn(aux, name)) { aux[name] = !aux[name]; paintAux(); } }
+paintAux();
+
 export function setCatalog(list) {
   const act = list.filter(c => c.activo !== 0 && c.activo !== false);
   byName = new Map(act.map(c => [c.nombre, c])); byId = new Map(act.map(c => [c.id_comando, c]));
@@ -57,8 +66,10 @@ export function joy(side, name) {
 }
 
 onEvent(ev => {
+  if (ev.evento === 'MOV_DEMO') return toggleAux(ev.comando);   // un paso de DEMO con LUZ/SONIDO también alterna el dispositivo
   if (ev.evento !== 'MOV_INDIVIDUAL') return;
   const c = byId.get(ev.id_comando); if (!c) return;
+  toggleAux(c.nombre);   // el estado sigue al evento: también cambia si la orden vino de otra pestaña o cliente
   mark(c.nombre, 'received'); say(`${c.nombre}: evento recibido por WebSocket`, 'ok');
   setTimeout(() => mark(c.nombre, 'idle'), 1200);
 });

@@ -218,3 +218,49 @@ main.container-lg{padding-top:12px!important;padding-bottom:8px!important}
 .hist-note{margin:8px 0 0;font-size:.65rem;color:#9a8f7c}
 @media (min-width:576px){.last-meta{grid-template-columns:repeat(4,1fr)}.hist{font-size:.95rem}}
 @media (orientation:landscape) and (max-height:520px){.tabs{margin-top:3px}.tabs a{min-height:24px;padding:2px 12px;font-size:.7rem}}
+
+/* ===== Ajuste a la pantalla (sin bajar la página) y LUZ/SONIDO con estado ===== */
+body{min-height:100vh;min-height:100dvh}
+.app-header{display:flex;align-items:center;justify-content:center;gap:16px;padding-top:calc(8px + env(safe-area-inset-top));padding-bottom:8px}
+.app-header h1{margin:0}.tabs{margin-top:0}
+.chip{flex-direction:row;justify-content:center;text-align:left;gap:8px;padding:5px 8px;border-top-width:3px}
+.chip>span{display:flex;flex-direction:column;min-width:0}
+.chip i{font-size:1.15rem}
+.hist td{padding:clamp(2px,calc((100dvh - 560px) / 25),8px) 6px}   /* las filas se ajustan a la altura disponible */
+.hist-state:empty{display:none}
+.aux-st{font-size:.55rem;font-weight:900;letter-spacing:1px;padding:1px 6px;border-radius:8px}
+.actions .btn-act[aria-pressed=true]{background:#fff6b0;box-shadow:0 0 14px #fff6b0,0 4px 0 #0004}
+.actions .btn-act[aria-pressed=true] .aux-st{background:var(--ok);color:#052}
+.actions .btn-act[aria-pressed=false]{background:#cfcfcf;color:#555}
+.actions .btn-act[aria-pressed=false] .aux-st{background:#555;color:#eee}
+@media (min-width:900px){
+  #view-monitoreo{max-width:1100px;display:grid;grid-template-columns:minmax(320px,.8fr) 1.2fr;gap:12px;align-items:start}
+  #view-monitoreo .mon-card{margin-top:0}
+}
+@media (max-width:767px) and (orientation:portrait){
+  :root{--j:clamp(100px,min(42vw,calc(100dvh - 490px)),280px)}
+  .app-header{justify-content:space-between;gap:8px;padding:6px 10px;padding-top:calc(6px + env(safe-area-inset-top))}
+  .app-header h1{font-size:.78rem!important;letter-spacing:1px;text-align:left}
+  .t-long{display:none}
+  .tabs a{min-height:28px;padding:2px 12px;font-size:.7rem}
+  main.container-lg{padding-top:10px!important;padding-bottom:4px!important}
+  .status{padding:4px;gap:4px}
+  .chip{justify-content:flex-start;padding:4px 6px;gap:6px}
+  .chip i{font-size:1rem}.chip b{font-size:.7rem}.chip small{font-size:.48rem}
+  .remote{padding:8px;gap:6px;margin-top:6px}
+  .btn-act.stop{width:58px;height:58px}.btn-act.stop i{font-size:1.4rem}.btn-act.stop span{font-size:.5rem}
+  .actions .btn-act{min-height:42px}
+  .demo{padding:22px 8px 8px}
+  .dial{width:64px;height:64px}.dial-num{width:38px;height:38px;font-size:1.15rem}.dial-step{height:38px;width:30px}
+  .demo-btns .btn{min-height:40px;min-width:44px}
+  .led-wrap{padding:4px 10px}.led-bar i{height:9px}
+  .remote .msg{height:2.6em;font-size:.68rem;padding:2px 10px}
+  .joy-title{font-size:.68rem;padding:2px 8px}
+  #view-monitoreo{margin-top:6px}
+  .mon-card{margin-top:6px;padding:8px 10px}.mon-card h2{font-size:.72rem;margin-bottom:6px}
+  .last-main{gap:8px}.last-main i{font-size:1.6rem}.last-main strong{font-size:1.3rem}
+  .last-meta{gap:4px 10px;margin:6px 0 4px}.last-meta dd{font-size:.85rem}
+  .last-src{font-size:.62rem;padding:3px 6px}
+  .hist{font-size:.78rem}.hist th{padding:3px 6px}.hist-note{font-size:.5rem;margin-top:4px}
+  .credits{padding:4px 8px}.credits small{font-size:.62rem}
+}
