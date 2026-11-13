@@ -27,8 +27,7 @@ export const api = {
   mover: id_comando => request(`${V}/movimientos`, { method: 'POST',
     body: { id_vehiculo: CONFIG.VEHICLE_ID, id_comando, conectado: true, origen: 'WEB_GUI' } }),
   iniciarDemo: id => request(`${V}/demos/${id}/iniciar`, { method: 'POST' }),
-  iaComando: texto => request(`${V}/ia/comando`, { method: 'POST', body: { texto }, timeout: 25000 }),
-  estado: () => request(`${V}/estado`),
+  iaComando: (texto, estado = {}) => request(`${V}/ia/comando`, { method: 'POST', body: { texto, ...estado }, timeout: 25000 }),  estado: () => request(`${V}/estado`),
   historial: () => request(`${V}/historial`),
 };
 

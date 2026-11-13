@@ -17,6 +17,7 @@ const aux = { LUZ: true, SONIDO: true };
 const AUX_BTN = { LUZ: 'btnLight', SONIDO: 'btnSound' };
 function paintAux() {
   Object.keys(aux).forEach(n => { const b = $(AUX_BTN[n]); b.setAttribute('aria-pressed', aux[n]); b.querySelector('.aux-st').textContent = aux[n] ? 'ON' : 'OFF'; });
+  document.dispatchEvent(new CustomEvent('aux', { detail: { ...aux } }));   // avisa a otras vistas (gestos)
 }
 function toggleAux(name) { if (Object.hasOwn(aux, name)) { aux[name] = !aux[name]; paintAux(); } }
 paintAux();
@@ -75,3 +76,4 @@ onEvent(ev => {
 });
 
 export const commandById = id => byId.get(id);   // lo usa MONITOREO para nombrar eventos
+export const getAux = () => ({ ...aux });   // estado actual de luz y sonido (lo usa la IA)

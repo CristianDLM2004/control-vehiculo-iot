@@ -1,6 +1,6 @@
 // Asistente IA: voz o texto -> API (la clave de OpenAI vive en el servidor) -> secuencia que se ejecuta como una DEMO temporal.
 import { api } from './api.js';
-import { stop } from './controls.js';
+import { stop, getAux } from './controls.js';
 import { send, onEvent } from './socket.js';
 
 const $ = id => document.getElementById(id);
@@ -27,26 +27,37 @@ export async function enviar(texto) {
   if (/^(alto|para|detente|detener|stop|basta)\b/i.test(texto)) { send('CANCELAR'); stop(); say('Detenido.', 'ok'); return; }   // seguridad: sin IA ni espera
   enviando = true; busy(true); plan = []; paso = -1; renderPasos(); say('Pensando…');
   try {
-    const r = await api.iaComando(texto);
+   const a = getAux(), r = await api.iaComando(texto, { luz: a.LUZ, sonido: a.SONIDO });   // la IA sabe cómo están luz y sonido
     plan = r.pasos || []; renderPasos();
     say(r.mensaje || (plan.length ? 'Listo.' : 'No puedo hacer eso.'), plan.length ? 'ok' : '');
   } catch (e) { say(e.message, 'bad'); }
   finally { enviando = false; busy(false); }
 }
 
+const ERRORES_VOZ = {
+  'not-allowed': 'El navegador bloqueó el micrófono: pulsa el candado de la barra de direcciones y permite el micrófono.',
+  'service-not-allowed': 'Este navegador no permite el reconocimiento de voz aquí: prueba con Chrome o Edge.',
+  'audio-capture': 'No se detecta el micrófono. Revisa el dispositivo de entrada predeterminado de Windows (el teléfono vinculado puede estar ocupando ese lugar).',
+  'network': 'No se pudo contactar el servicio de voz del navegador (¿VPN activa?). Prueba sin VPN o con Chrome/Edge.',
+  'no-speech': 'No te escuché; habla más cerca del micrófono e inténtalo otra vez.',
+};
+
 function hablar() {
   if (!SR) return say('Tu navegador no admite reconocimiento de voz: usa Chrome o Edge, o escribe la orden.', 'bad');
   if (escuchando) return rec.stop();
   rec = new SR(); rec.lang = 'es-MX'; rec.interimResults = true; rec.maxAlternatives = 1;
-  let final = '';
+  let final = '', fallo = false;
   rec.onstart = () => { escuchando = true; $('micBtn').setAttribute('aria-pressed', 'true'); say('Escuchando…'); };
   rec.onresult = e => {
     let t = ''; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
     $('iaText').value = t; if (e.results[e.results.length - 1].isFinal) final = t;
   };
-  rec.onerror = e => say(e.error === 'not-allowed' ? 'Permite el micrófono para usar la voz.' : e.error === 'no-speech' ? 'No te escuché; inténtalo otra vez.' : `Error de voz: ${e.error}`, 'bad');
-  rec.onend = () => { escuchando = false; $('micBtn').setAttribute('aria-pressed', 'false'); if (final) enviar(final); };
-  rec.start();
+  rec.onerror = e => { fallo = true; if (e.error !== 'aborted') say(ERRORES_VOZ[e.error] || `Error de voz: ${e.error}`, 'bad'); };
+  rec.onend = () => {
+    escuchando = false; $('micBtn').setAttribute('aria-pressed', 'false');
+    if (final) enviar(final); else if (!fallo) say('El micrófono no captó audio. Revisa el dispositivo de entrada y los permisos.', 'bad');
+  };
+  try { rec.start(); } catch (e) { say(`No se pudo iniciar el micrófono: ${e.message}`, 'bad'); }
 }
 
 export const leave = () => { if (rec && escuchando) rec.abort(); };   // al salir de la vista se apaga el micrófono

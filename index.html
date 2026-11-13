@@ -70,8 +70,12 @@
     </section>
   </div>
 
-  <div id="view-ia" hidden>
-    <section class="mon-card" aria-labelledby="iaTitle">
+ <div id="view-ia" hidden>
+    <div class="subtabs" role="tablist" aria-label="Modo del asistente">
+      <button id="sub-voz" type="button" role="tab" aria-selected="true" aria-controls="ia-voz" class="active">Voz y texto</button>
+      <button id="sub-gestos" type="button" role="tab" aria-selected="false" aria-controls="ia-gestos">Gestos</button>
+    </div>
+    <section id="ia-voz" class="mon-card" role="tabpanel" aria-labelledby="sub-voz">
       <h2 id="iaTitle">Asistente IA</h2>
       <div class="ia-row">
         <button id="micBtn" type="button" class="mic" aria-pressed="false" aria-label="Hablar a la excavadora"><i class="bi bi-mic-fill"></i></button>
@@ -85,6 +89,29 @@
       <p id="iaSay" class="ia-say" role="status" aria-live="polite">Habla o escribe una orden.</p>
       <ol id="iaSteps" class="ia-steps" aria-label="Pasos planeados"></ol>
       <button id="iaStop" type="button" class="ia-stop"><i class="bi bi-stop-fill"></i> Detener</button>
+    </section>
+    <section id="ia-gestos" class="mon-card" role="tabpanel" aria-labelledby="sub-gestos" hidden>
+      <h2 id="gesTitle">Gestos con cámara</h2>
+      <label for="camSel" class="visually-hidden">Cámara</label>
+      <select id="camSel" class="form-select cam-sel" aria-describedby="camHint"></select>
+      <p id="camHint" class="ges-help">Si tu teléfono aparece como cámara (Enlace a Windows), elige aquí la cámara de la PC.</p>
+      <div id="camWrap" class="cam-wrap" hidden>
+        <video id="camVideo" playsinline muted></video><canvas id="camCanvas"></canvas>
+        <div class="cam-guide" aria-hidden="true">
+          <div id="camZone" class="cam-zone"><span>Zona neutral</span></div>
+          <span class="g-up">↑ Subir brazo</span><span class="g-down">↓ Bajar brazo</span><span class="g-left">← Cabina izq.</span><span class="g-right">Cabina der. →</span>
+        </div>
+      </div>
+      <div class="ges-state"><span id="gesTracks" class="ges-chip">Orugas: —</span><span id="gesArm" class="ges-chip">Cabina/brazo: —</span><span id="gesLuz" class="ges-chip">Luz ✌: ON</span><span id="gesSonido" class="ges-chip">Sonido 🤘: ON</span></div>
+      <p id="gesSay" class="ia-say" role="status" aria-live="polite">Activa la cámara y muestra las manos.</p>
+      <div class="ges-btns">
+        <button id="camBtn" type="button" class="btn btn-warning">Activar cámara</button>
+        <button id="gesStop" type="button" class="btn btn-danger">Detener</button>
+      </div>
+      <p class="ges-help"><strong>Orugas:</strong> señala con el índice o el pulgar: ↑ avanzar · ↓ retroceder · → derecha · ← izquierda.<br>
+        <strong>Cabina y brazo:</strong> palma abierta fuera del cuadro punteado hacia el lado que quieras.<br>
+        <strong>Luz y sonido:</strong> ✌ (índice y medio) alterna la luz · 🤘 (índice y meñique) alterna el sonido; mantén el gesto ~0.3 s.<br>
+        Puño, mano fuera de cuadro o sin manos: se detiene. Puedes usar las dos manos a la vez.</p>
     </section>
   </div>
 </main>
